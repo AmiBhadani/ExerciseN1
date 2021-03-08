@@ -10,6 +10,7 @@ const cool = require('cool-ascii-faces');
 const express = require('express');
 const path = require('path');
 const PORT = process.env.PORT || 5000;
+const MongoClient = require('mongodb').MongoClient;
 
 const url = 'mongodb+srv://AmiBhadani:abcd1234@trialdb.krxi9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
