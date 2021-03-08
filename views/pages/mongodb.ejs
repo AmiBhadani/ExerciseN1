@@ -4,11 +4,23 @@
 </head>
 <body>
 <div class="container">
-    <h2>Test</h2>
+    <h2>User table detail</h2>
     <ul>
+        <table  border="2">
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+                <td>Profession</td>
+            </tr>
         <% results.forEach(function(r) { %>
-            <li><%= r.test %> - <%= r.asdf %></li>
+            <tr>
+                <td><%= r.id %></td>
+                <td><%= r.name %></td>
+                <td><%= r.profession %></td>
+            </tr>
+            <!--<li><%= r.id %> - <%= r.name %> - <%= r.profession %></li>-->
         <% }); %>
+        </table>
     </ul>
 </div>
 </body>
