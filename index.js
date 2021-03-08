@@ -11,6 +11,8 @@ const express = require('express');
 const path = require('path');
 const PORT = process.env.PORT || 5000;
 
+const url = 'mongodb+srv://AmiBhadani:abcd1234@trialdb.krxi9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+
 express()
   .use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
@@ -30,6 +32,25 @@ express()
       res.send("Error " + err);
     }
   })
+  .get('/mongodb', (req, res) => {
+        MongoClient.connect(url, function(err, client) {
+            // mongodb.MongoClient.connect(process.env.MONGODB_URI, function(err, db) {  // works with mongodb v2 but not v3
+            if(err) throw err
+            //get collection of routes
+            const db = client.db('Test')  // in v3 we need to get the db from the client
+            const Routes = db.collection('User')
+            //get all Routes with frequency >=1
+            Routes.find({}).toArray(function (err, docs) {
+                if(err) throw err
+                res.render('pages/mongodb', {results: docs})
+            })
+            //close connection when your app is terminating.
+            // db.close(function (err) {
+            client.close(function (err) {
+                if(err) throw err
+            })
+        })
+    })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 showTimes = () => {
